@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
-from django.conf.urls import url, include
+#from django.conf.urls import include
 #from django.contrib.auth.models import User
 from api import views as api_views
 from rest_framework import routers
