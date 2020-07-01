@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Third-party
     'debug_toolbar',
     'django_extensions',
+    'rest_framework'
 
     # Project-specific
     'users',
@@ -142,3 +143,13 @@ INTERNAL_IPS = [
 import django_heroku
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+# REST framework settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':[
+    'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}
