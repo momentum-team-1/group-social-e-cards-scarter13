@@ -6,4 +6,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    birthday = models.DateField(blank=True, null=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    bio = models.TextField(blank=True, null=True)

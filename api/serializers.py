@@ -9,8 +9,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = [
             'url', 
+            'id',
             'username', 
-            'email']
+            'birthday',
+            'email',
+            'bio',
+        ]
+
 
 
 class CardSerializer(serializers.HyperlinkedModelSerializer):

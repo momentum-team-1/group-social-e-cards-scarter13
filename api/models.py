@@ -55,4 +55,6 @@ class Card(models.Model):
     inner_text = models.TextField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
+
+
     
