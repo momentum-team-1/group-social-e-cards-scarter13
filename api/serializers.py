@@ -4,11 +4,10 @@ from .models import Card
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'url', 
             'id',
             'username', 
             'birthday',
@@ -18,11 +17,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class CardSerializer(serializers.HyperlinkedModelSerializer):
+class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = [
-            'url', 
+        fields = [ 
             'id',
             'creator',
             'title',
