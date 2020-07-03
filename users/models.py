@@ -9,3 +9,7 @@ class User(AbstractUser):
     birthday = models.DateField(blank=True, null=True)
     email = models.CharField(max_length=100, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
+
+    """
+    still need to build in a followed by field
+    """

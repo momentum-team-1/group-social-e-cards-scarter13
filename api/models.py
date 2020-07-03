@@ -47,7 +47,7 @@ class Card(models.Model):
         (FONT_SEVEN, 'Font 7'),
         (FONT_EIGHT, 'Font 8'),
     ]
-    creator = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, related_name='cards')
+    creator = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='cards')
     title = models.CharField(max_length=100, null=True, blank=True)
     color = models.CharField(max_length=25, choices=COLOR_CHOICES, default=COLOR_ONE)
     font = models.CharField(max_length=25, choices=FONT_CHOICES, default=FONT_ONE)
