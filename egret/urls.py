@@ -16,8 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
-#from django.conf.urls import include
-#from django.contrib.auth.models import User
 from api import views as api_views
 from rest_framework import routers
 from rest_framework.authtoken import views as authtoken_views
@@ -25,7 +23,7 @@ from rest_framework.authtoken import views as authtoken_views
 
 router = routers.DefaultRouter()
 router.register('users', api_views.UserViewSet)
-router.register('cards', api_views.AllCardViewSet)
+router.register('cards', api_views.CardViewSet, basename='card')
 
 
 urlpatterns = [

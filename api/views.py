@@ -1,5 +1,5 @@
 from django.shortcuts import render
-#from django.contrib.auth.models import User
+from rest_framework.decorators import action
 from users.models import User
 from .models import Card
 from rest_framework import viewsets, permissions
@@ -13,7 +13,10 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAdminUser]
 
 
-class AllCardViewSet(viewsets.ModelViewSet):
+class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
