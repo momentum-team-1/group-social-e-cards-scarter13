@@ -54,7 +54,9 @@ class Card(models.Model):
     outer_text = models.TextField(blank=True, null=True)
     inner_text = models.TextField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
+    favorite_of = models.ManyToManyField(to=User, blank=True, related_name="favorite_cards")
 
-
+    class Meta:
+        ordering = ['-date']
 
     

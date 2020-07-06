@@ -24,8 +24,15 @@ class CardViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
-    @action(detail=False)
+    @action(detail=False, permission_classes = [permissions.IsAuthenticated])
     def me(self, request):
         cards = request.user.cards.all()
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
+
+    @action(detail=False, permission_classes = [permissions.IsAuthenticated])
+    def all(self, request):
+        cards = Card.objects.all()
+        serializer = CardSerializer(cards, many=True)
+        return Response(serializer.data)
+    
