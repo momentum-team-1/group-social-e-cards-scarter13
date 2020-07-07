@@ -26,7 +26,7 @@ class Card(models.Model):
         ordering = ['-date']
 
 
-    """
+   
     #COLOR_ONE = 'C_ONE'
     #COLOR_TWO = 'C_TWO'
     #COLOR_THREE = 'C_THREE'
@@ -37,7 +37,7 @@ class Card(models.Model):
     #COLOR_EIGHT = 'C_EIGHT'
     #COLOR_CHOICES =[
         #(COLOR_ONE, 'Color 1'),
-        (#COLOR_TWO, 'Color 2'),
+        #(COLOR_TWO, 'Color 2'),
         #(COLOR_THREE, 'Color 3'),
         #(COLOR_FOUR, 'Color 4'),
         #(COLOR_FIVE, 'Color 5'),
@@ -63,4 +63,3 @@ class Card(models.Model):
         #(FONT_SEVEN, 'Font 7'),
         #(FONT_EIGHT, 'Font 8'),
     #]
-    """

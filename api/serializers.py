@@ -35,4 +35,5 @@ class FriendSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'username',
+            'id',
         ]
