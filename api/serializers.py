@@ -29,3 +29,10 @@ class CardSerializer(serializers.ModelSerializer):
             'outer_text',
             'inner_text',
         ]
+
+class FriendSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+        ]
