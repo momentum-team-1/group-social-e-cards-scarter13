@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, authentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from users.models import User
 from .models import Card
 
@@ -35,4 +36,25 @@ class CardViewSet(viewsets.ModelViewSet):
         cards = Card.objects.all()
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
+
+class FollowedUserView(APIView):
+    """
+    Show friends that are being followed by the request.user ... or is it better to make this add a friend?
+    """
+    authentication_classes = [authentication.TokenAuthentication]
+    def get(self, request, format=None):
+        my_followed_users = User.objects.filter(self__in=objects.followers)
+
+        return Response(my_followed_users)
+
+
+#    def post(self, request, format=None):
+#        name_of_user = request.data["user"]
+#        user = User.objects.get(username=name_of_user)
+#        current_user = request.user
+#        current_user.followed_users.add(user_to_follow)
+#        return Response(
+#            {followed_user}
+#        )
+        
     

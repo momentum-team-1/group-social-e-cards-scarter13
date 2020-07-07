@@ -33,6 +33,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #path('api/token/', authtoken_views.obtain_auth_token),
     path('api/', include(router.urls)),
+    path('api/friends/', api_views.FollowedUserView.as_view(), name='api_FollowedUserList')
+    #path('api/friends/<username>/)
 ]
 
 
