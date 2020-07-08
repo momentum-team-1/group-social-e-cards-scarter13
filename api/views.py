@@ -81,3 +81,6 @@ class DeleteFollowedUser(APIView):
         current_user = request.user
         current_user.followed_users.remove(user_to_remove)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class FavoriteCardsView(GenericAPIView):
+    pass
