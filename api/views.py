@@ -17,9 +17,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class CardViewSet(viewsets.ModelViewSet):
-    queryset = Card.objects.all()
+    #queryset = Card.objects.all()
     serializer_class = CardSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        current_user=self.request.user
+        queryset = Card.objects.filter(creator__followers = current_user)
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
@@ -55,7 +60,7 @@ class FollowedUserView(GenericAPIView):
         user_to_follow = User.objects.get(username=name_of_user)
         current_user = request.user
         current_user.followed_users.add(user_to_follow)
-        return Response(status=status.HTTP_200_OK)
+        return Response("User Added!", status=status.HTTP_200_OK)
 
         
 class DeleteFollowedUser(APIView):
