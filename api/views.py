@@ -24,6 +24,17 @@ class CardViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
+    def destroy(self, request, pk):
+        """
+        Custom destroy method to limit card deletion to card creators
+        """
+        instance = self.get_object()
+        if instance.creator == request.user:
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("This Card does not belong to you", status=status.HTTP_401_UNAUTHORIZED)
+
     @action(detail=False, permission_classes = [permissions.IsAuthenticated])
     def me(self, request):
         cards = request.user.cards.all()
