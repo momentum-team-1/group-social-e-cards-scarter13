@@ -21,11 +21,6 @@ class CardViewSet(viewsets.ModelViewSet):
     serializer_class = CardSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    #def get_queryset(self):
-    #    current_user=self.request.user
-    #    queryset = Card.objects.filter(creator__followers = current_user)
-    #    return queryset
-
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
@@ -38,6 +33,12 @@ class CardViewSet(viewsets.ModelViewSet):
     @action(detail=False, permission_classes = [permissions.IsAuthenticated])
     def all(self, request):
         cards = Card.objects.all()
+        serializer = CardSerializer(cards, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, permission_classes = [permissions.IsAuthenticated])
+    def friends(self, request):
+        cards = Card.objects.filter(creator__followers = request.user)
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
 
