@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, permissions, authentication, status
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView
@@ -113,8 +114,7 @@ class FavoriteCardsView(GenericAPIView):
 #        new_favorite_card.favorite_of.add(current_user)
 #        return Response("Card added to favorites!", status=status.HTTP_200_OK)
 
-
-def toggle_favorite_card(request, card_id):
+def toggle_favorite_card(request, card_id, permission_classes = [permissions.IsAuthenticated]):
     card = get_object_or_404(Card, id=card_id)
 
     if request.user.is_favorite_card(card_id):

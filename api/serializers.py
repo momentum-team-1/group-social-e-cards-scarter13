@@ -15,9 +15,19 @@ class UserSerializer(serializers.ModelSerializer):
             'bio',
         ]
 
+#class FavoriteCardField(serializers.RelatedField):
+#    def to_representation(self, value):
+#        if self.favorite_of == request.user:
+#            is_favorite = True
+#        else:
+#            is_favorite = False
+#
+#        return is_favorite
 
 
 class CardSerializer(serializers.ModelSerializer):
+    #is_favorite = FavoriteCardField(queryset=Card.objects.all(), many=False)
+
     class Meta:
         model = Card
         fields = [ 
@@ -28,6 +38,7 @@ class CardSerializer(serializers.ModelSerializer):
             'font',
             'outer_text',
             'inner_text',
+            #'is_favorite',
         ]
 
 class FriendSerializer(serializers.ModelSerializer):
