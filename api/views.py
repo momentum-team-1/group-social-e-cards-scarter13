@@ -17,14 +17,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class CardViewSet(viewsets.ModelViewSet):
-    #queryset = Card.objects.all()
+    queryset = Card.objects.all()
     serializer_class = CardSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        current_user=self.request.user
-        queryset = Card.objects.filter(creator__followers = current_user)
-        return queryset
+    #def get_queryset(self):
+    #    current_user=self.request.user
+    #    queryset = Card.objects.filter(creator__followers = current_user)
+    #    return queryset
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
