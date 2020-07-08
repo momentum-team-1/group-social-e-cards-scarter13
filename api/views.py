@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from rest_framework import viewsets, permissions, authentication, status
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView
@@ -28,7 +29,7 @@ class CardViewSet(viewsets.ModelViewSet):
         """
         Custom destroy method to limit card deletion to card creators
         """
-        instance = self.get_object()
+        instance = self.get_object(pk=pk)
         if instance.creator == request.user:
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -69,6 +70,7 @@ class FollowedUserView(GenericAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]  
     serializer_class = FriendSerializer
+
     def get(self, request, format=None):
         my_followed_users = User.objects.filter(followers=request.user)
         serializer = self.get_serializer(my_followed_users, many=True)
@@ -94,4 +96,30 @@ class DeleteFollowedUser(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class FavoriteCardsView(GenericAPIView):
-    pass
+    queryset = Card.objects.all()
+    permission_classes = [permissions.IsAuthenticated]  
+    serializer_class = CardSerializer
+
+    def get(self, request, format=None):
+        my_favorite_cards = Card.objects.filter(favorite_of=request.user)
+        serializer = self.get_serializer(my_favorite_cards, many=True)
+        return Response(serializer.data)
+
+#    def post(self, request, format=None):
+#        """Add a Card to your list of favorite cards"""
+#        card_id = request.data["id"]
+#        new_favorite_card = Card.objects.get(id=card_id)
+#        current_user = request.user
+#        new_favorite_card.favorite_of.add(current_user)
+#        return Response("Card added to favorites!", status=status.HTTP_200_OK)
+
+
+def toggle_favorite_card(request, card_id):
+    card = get_object_or_404(Card, id=card_id)
+
+    if request.user.is_favorite_card(card_id):
+        request.user.favorite_cards.remove(card)
+        return JsonResponse({"isFavorite": False})
+    else:
+        request.user.favorite_cards.add(card)
+        return JsonResponse({"isFavorite": True})

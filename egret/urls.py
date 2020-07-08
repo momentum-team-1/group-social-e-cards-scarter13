@@ -34,6 +34,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/friends/', api_views.FollowedUserView.as_view(), name='api_FollowedUserList'),
     path('api/friends/<int:user_id>/', api_views.DeleteFollowedUser.as_view()),
+    path('api/favorites/', api_views.FavoriteCardsView.as_view(), name='api_FavoriteCardsList'),
+    path('api/favorites/<int:card_id>/', api_views.toggle_favorite_card, name="api_toggle_favorite_card"),
 ]
 
 

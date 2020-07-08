@@ -11,4 +11,7 @@ class User(AbstractUser):
     bio = models.TextField(blank=True, null=True)
     followed_users = models.ManyToManyField("self", blank=True, symmetrical=False, related_name="followers")
 
+    def is_favorite_card(self, card_id):
+        return self.favorite_cards.filter(id=card_id).count() == 1
+
 
