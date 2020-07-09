@@ -38,7 +38,7 @@ class CardSerializer(serializers.ModelSerializer):
             'font',
             'outer_text',
             'inner_text',
-            #'is_favorite',
+            'favorite_of',
         ]
 
 class FriendSerializer(serializers.ModelSerializer):
