@@ -30,7 +30,7 @@ class CardViewSet(viewsets.ModelViewSet):
         """
         Custom destroy method to limit card deletion to card creators
         """
-        instance = self.get_object(pk=pk)
+        instance = self.get_object()
         if instance.creator == request.user:
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
